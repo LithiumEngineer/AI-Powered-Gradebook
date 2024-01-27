@@ -25,7 +25,8 @@ const Students = () => {
 
   const handleSelectAll = () => {
     if (
-      studentList.every((student) => selected.includes(student.id))
+      studentList.every((student) => selected.includes(student.id)) &&
+      studentList.length !== 0
     ) {
       setSelected([])
     } else {
@@ -51,7 +52,8 @@ const Students = () => {
         <StudentHeader
           handleSelectAll={handleSelectAll}
           selected={
-            studentList.every((student) => selected.includes(student.id))
+            studentList.every((student) => selected.includes(student.id)) &&
+            studentList.length !== 0
           }
         />
         <div className="w-auto h-[1px] bg-orange-300 mx-2"></div>
