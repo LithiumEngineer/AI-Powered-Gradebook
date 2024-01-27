@@ -3,19 +3,23 @@ import axios from "axios"
 import TestItem from "./TestItem"
 import TestHeader from "./TestHeader"
 import PopupModal from "./PopupModal"
+import React from "react"
+import { RingLoader } from "react-spinners"
 
 const Tests = ({ sub }) => {
-  useEffect(() => {
-    axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
-      setTestList(res.data)
-    })
-  }, [])
-
   const [selected, setSelected] = useState([])
   const [showDetailsPopup, setShowDetailsPopup] = useState(false)
   const [showAddPopup, setShowAddPopup] = useState(false)
   const [testList, setTestList] = useState([])
   const [test, setTest] = useState({}) // for popup modal
+  const [deletedLoading, setDeletedLoading] = useState(false)
+
+  useEffect(() => {
+    if (showAddPopup) return;
+    axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
+      setTestList(res.data)
+    })
+  }, [showAddPopup])
 
   const handleSelect = (test) => {
     //if in list, remove. otherwise add to list
@@ -37,6 +41,21 @@ const Tests = ({ sub }) => {
     }
   }
 
+  const handleDelete = async (id) => {
+    setDeletedLoading(true)
+    try {
+      await axios.delete(`http://localhost:3500/tests`, { data: { record_id: id } })
+    } catch (err) {
+      console.log(err)
+    }
+
+    axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
+      setDeletedLoading(false)
+      setSelected([])
+      setTestList(res.data)
+    })
+  }
+
   const closeDetailsPopUp = () => {
     setShowDetailsPopup(false)
   }
@@ -54,18 +73,22 @@ const Tests = ({ sub }) => {
     setShowAddPopup(false)
   }
 
+  if (deletedLoading) return <div className="flex h-screen bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>;
+
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
       <PopupModal
         open={showAddPopup}
         onClose={() => closeAddPopup()}
         type="addtest"
+        sub={sub}
       />
       <PopupModal
         open={showDetailsPopup}
         onClose={() => closeDetailsPopUp()}
         type="test"
         test={test}
+        sub={sub}
       />
       <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">Tests</div>
       <div className="w-auto mx-10">
@@ -88,6 +111,7 @@ const Tests = ({ sub }) => {
               name={test.name}
               selected={selected.includes(test.id)}
               handleSelect={handleSelect}
+              handleDelete={handleDelete}
               openDetailsPopUp={openDetailsPopUp}
             />
           )

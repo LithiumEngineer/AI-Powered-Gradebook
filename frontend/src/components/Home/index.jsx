@@ -1,9 +1,17 @@
+import React, { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import MenuBar from "../MenuBar"
 import { useAuth0 } from "@auth0/auth0-react"
 
 const Home = () => {
   const { loginWithRedirect } = useAuth0()
   const { user, isAuthenticated, isLoading } = useAuth0()
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated && !isLoading) navigate("/dashboard")
+  }, [isAuthenticated, isLoading, navigate])
 
   return (
     <div className="flex flex-col w-screen h-screen bg-[#FFFDE8]">

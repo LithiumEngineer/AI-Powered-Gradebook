@@ -56,8 +56,8 @@ const Students = ({ sub }) => {
 
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
-      <PopupModal open={showAddPopup} onClose={() => closeAddPopup()} type="addstudent"/>
-      <PopupModal open={showDetailsPopup} onClose={() => closeDetailsPopUp()} type="student" student={student}/>
+      <PopupModal open={showAddPopup} onClose={() => closeAddPopup()} type="addstudent" sub={sub}/>
+      <PopupModal open={showDetailsPopup} onClose={() => closeDetailsPopUp()} type="student" student={student} sub={sub}/>
       <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">
         Students
       </div>

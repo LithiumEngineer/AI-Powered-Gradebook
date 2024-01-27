@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Button from "./Button"
+import { RingLoader } from "react-spinners"
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import axios from "axios"
 
-const PopupModal = ({ open, onClose, type, student = null, test = null }) => {
-  
+const PopupModal = ({ open, onClose, type, student = null, test = null, sub }) => {
+
   //TODO: fetch list of student
 
   const [studentList, setStudentList] = useState([])
@@ -13,22 +14,69 @@ const PopupModal = ({ open, onClose, type, student = null, test = null }) => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
 
-  const submitForm = () => {
-    console.log(studentList)
-    //TODO
+  const [isLoading, setIsLoading] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false)
+
+  const submitTestForm = async () => {
+    setIsLoading(true)
+
+    try {
+      await axios.post("http://localhost:3500/tests", {
+        name: testName,
+        topic: material,
+        student_grades_json: JSON.stringify({ "Student1": "0.98", "Student2": "0.86" }),
+        test_type: "N/A",
+        owner_id: sub
+      })
+    } catch (err) {
+      console.log(err)
+    }
+
+    setIsLoading(false)
+    setIsCompleted(true)
+    setTestName("")
+    setMaterial("")
   }
+
   const cancelForm = () => {
     onClose()
     setTestName("")
     setMaterial("")
   }
 
+  if (isLoading || isCompleted) return (
+    <div
+      style={{ backgroundColor: "rgba(50, 50, 50, 0.8)" }}
+      className={`fixed flex justify-around items-center top-0 left-0 h-screen w-screen z-30 ${!open && "hidden"
+        }`}
+    >
+      <div className="flex flex-col relative flex-1 h-4/5 mx-20 bg-[#FFFDE8] rounded-lg">
+        <IoIosCloseCircleOutline
+          className="w-6 h-6 ml-auto mr-2 mt-2 hover:text-red-500 hover:cursor-pointer"
+          onClick={() => {
+            setIsLoading(false)
+            setIsCompleted(false)
+            onClose()
+          }}
+        />
+        <div className="flex-1 flex flex-col h-auto mx-5 mt-2 mb-10">
+          {
+            isCompleted ? (
+              <h1 className="text-3xl text-[#545F71] font-bold">Success!</h1>
+            ) : (
+              <div className="flex h-full bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  )
+
   return (
     <div
       style={{ backgroundColor: "rgba(50, 50, 50, 0.8)" }}
-      className={`fixed flex justify-around items-center top-0 left-0 h-screen w-screen z-30 ${
-        !open && "hidden"
-      }`}
+      className={`fixed flex justify-around items-center top-0 left-0 h-screen w-screen z-30 ${!open && "hidden"
+        }`}
     >
       <div className="flex flex-col relative flex-1 h-4/5 mx-20 bg-[#FFFDE8] rounded-lg">
         <IoIosCloseCircleOutline
@@ -79,7 +127,7 @@ const PopupModal = ({ open, onClose, type, student = null, test = null }) => {
               </div>
               <div className="mt-5 flex justify-end">
                 <Button name="Cancel" onClick={cancelForm} />
-                <Button name="Submit" onClick={submitForm} />
+                <Button name="Submit" onClick={submitTestForm} />
               </div>
             </>
           ) : type == "addstudent" ? (
@@ -113,7 +161,7 @@ const PopupModal = ({ open, onClose, type, student = null, test = null }) => {
               </div>
               <div className="mt-5 flex justify-end">
                 <Button name="Cancel" onClick={cancelForm} />
-                <Button name="Submit" onClick={submitForm} />
+                <Button name="Submit" onClick={submitTestForm} />
               </div>
             </>
           ) : null}
