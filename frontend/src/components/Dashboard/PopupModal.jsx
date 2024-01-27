@@ -5,6 +5,8 @@ import { IoIosCloseCircleOutline } from "react-icons/io"
 const PopupModal = ({ open, onClose, type, student = null, test = null }) => {
   const [testName, setTestName] = useState("")
   const [material, setMaterial] = useState("")
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
 
   const submitForm = () => {
     //TODO
@@ -75,7 +77,37 @@ const PopupModal = ({ open, onClose, type, student = null, test = null }) => {
               </div>
             </>
           ) : type == "addstudent" ? (
-            <h1>Add student</h1>
+            <>
+              <div className="text-3xl text-[#545F71] font-bold">Add Student</div>
+              <div className="flex flex-col mt-5">
+                <div className="text-[#4C8492] font-thin">First Name</div>
+                <div className="border-[1px] border-solid border-[#4C8492] px-4 py-2 rounded-md">
+                  <input
+                    type="text"
+                    placeholder="Enter First Name"
+                    className="bg-[#FFFDE8] w-full font-thin text-[#4C8492] outline-none"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col mt-5">
+                <div className="text-[#4C8492] font-thin">Last Name</div>
+                <div className="border-[1px] border-solid border-[#4C8492] px-4 py-2 rounded-md">
+                  <input
+                    type="text"
+                    placeholder="Enter First Name"
+                    className="bg-[#FFFDE8] w-full font-thin text-[#4C8492] outline-none"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="mt-5 flex justify-end">
+                <Button name="Cancel" onClick={cancelForm} />
+                <Button name="Submit" onClick={submitForm} />
+              </div>
+            </>
           ) : null}
         </div>
       </div>
