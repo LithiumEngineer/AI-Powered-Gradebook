@@ -1,14 +1,20 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Button from "./Button"
 import { IoIosCloseCircleOutline } from "react-icons/io"
+import axios from "axios"
 
 const PopupModal = ({ open, onClose, type, student = null, test = null }) => {
+  
+  //TODO: fetch list of student
+
+  const [studentList, setStudentList] = useState([])
   const [testName, setTestName] = useState("")
   const [material, setMaterial] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
 
   const submitForm = () => {
+    console.log(studentList)
     //TODO
   }
   const cancelForm = () => {
@@ -78,7 +84,9 @@ const PopupModal = ({ open, onClose, type, student = null, test = null }) => {
             </>
           ) : type == "addstudent" ? (
             <>
-              <div className="text-3xl text-[#545F71] font-bold">Add Student</div>
+              <div className="text-3xl text-[#545F71] font-bold">
+                Add Student
+              </div>
               <div className="flex flex-col mt-5">
                 <div className="text-[#4C8492] font-thin">First Name</div>
                 <div className="border-[1px] border-solid border-[#4C8492] px-4 py-2 rounded-md">
