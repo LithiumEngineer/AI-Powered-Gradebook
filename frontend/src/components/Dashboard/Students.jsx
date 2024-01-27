@@ -15,22 +15,21 @@ const Students = () => {
   const [showPopup, setShowPopup] = useState(false)
   const [studentList, setStudentList] = useState([])
 
-  const handleSelect = (name) => {
-    if (!selected.includes(name)) {
-      setSelected([...selected, name])
+  const handleSelect = (student) => {
+    if (!selected.includes(student)) {
+      setSelected([...selected, student])
     } else {
-      setSelected(selected.filter((item) => item != name))
+      setSelected(selected.filter((item) => item != student))
     }
   }
 
   const handleSelectAll = () => {
     if (
-      selected.every((item) => studentList.includes(item)) &&
-      studentList.every((item) => selected.includes(item))
+      studentList.every((student) => selected.includes(student.id))
     ) {
       setSelected([])
     } else {
-      setSelected(studentList)
+      setSelected(studentList.map((student) => student.id))
     }
   }
 
@@ -52,8 +51,7 @@ const Students = () => {
         <StudentHeader
           handleSelectAll={handleSelectAll}
           selected={
-            selected.every((item) => studentList.includes(item)) &&
-            studentList.every((item) => selected.includes(item))
+            studentList.every((student) => selected.includes(student.id))
           }
         />
         <div className="w-auto h-[1px] bg-orange-300 mx-2"></div>
@@ -63,8 +61,9 @@ const Students = () => {
           return (
             <StudentItem
               key={student.id}
+              id={student.id}
               name={student.first_name + " " + student.last_name}
-              selected={selected.includes(name)}
+              selected={selected.includes(student.id)}
               handleSelect={handleSelect}
               viewDetails={() => setShowPopup(true)}
             />
