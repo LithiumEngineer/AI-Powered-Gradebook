@@ -14,6 +14,7 @@ const Students = () => {
   const [selected, setSelected] = useState([])
   const [showPopup, setShowPopup] = useState(false)
   const [studentList, setStudentList] = useState([])
+  const [student, setStudent] = useState({}) // for popup modal
 
   const handleSelect = (student) => {
     if (!selected.includes(student)) {
@@ -38,13 +39,14 @@ const Students = () => {
     setShowPopup(false)
   }
 
-  const openPopUp = () => {
+  const openPopUp = (id) => {
     setShowPopup(true)
+    setStudent(studentList.find((student) => student.id === id))
   }
 
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
-      <PopupModal open={showPopup} onClose={() => closePopUp()} />
+      <PopupModal open={showPopup} onClose={() => closePopUp()} type="student" student={student}/>
       <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">
         Students
       </div>
@@ -67,7 +69,7 @@ const Students = () => {
               name={student.first_name + " " + student.last_name}
               selected={selected.includes(student.id)}
               handleSelect={handleSelect}
-              viewDetails={() => setShowPopup(true)}
+              openPopUp={openPopUp}
             />
           )
         })}
