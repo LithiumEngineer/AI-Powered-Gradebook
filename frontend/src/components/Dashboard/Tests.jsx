@@ -26,7 +26,8 @@ const Tests = () => {
 
   const handleSelectAll = () => {
     if (
-      testList.every((test) => selected.includes(test.id))
+      testList.every((test) => selected.includes(test.id)) &&
+      testList.length !== 0
     ) {
       setSelected([])
     } else {
@@ -50,7 +51,8 @@ const Tests = () => {
         <TestHeader
           handleSelectAll={handleSelectAll}
           selected={
-            testList.every((test) => selected.includes(test.id))
+            testList.every((test) => selected.includes(test.id)) &&
+            testList.length !== 0
           }
         />
         <div className="w-auto h-[1px] bg-orange-300 mx-2"></div>
