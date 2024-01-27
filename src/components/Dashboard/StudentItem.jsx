@@ -1,10 +1,11 @@
 import { GrFormCheckmark } from "react-icons/gr"
+import Button from "./Button"
 
 const StudentItem = ({ name, selected, handleSelect }) => {
   return (
     <div
       className={`flex justify-between items-center h-12 w-full rounded-sm ${
-        selected && "bg-[#F7E0A3]"
+        selected ? "bg-[#F7E0A3]" : "hover:bg-[#fef0c9]"
       } duration-100`}
     >
       <div className="flex items-center h-full">
@@ -26,9 +27,7 @@ const StudentItem = ({ name, selected, handleSelect }) => {
           {name}
         </div>
       </div>
-      <div className="bg-[#4C8492] px-4 py-2 rounded-full text-sm text-white mr-3 hover:cursor-pointer">
-        Details
-      </div>
+      <Button name="Details" />
     </div>
   )
 }

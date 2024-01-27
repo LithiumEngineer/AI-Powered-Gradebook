@@ -25,14 +25,17 @@ const Students = () => {
     }
   }
 
-  let studentList = ["Student #1", "Student #2", "Student #3"]
+  let studentList = []
+  for (let i = 1; i <= 30; i++) {
+    studentList.push("Student #" + i)
+  }
 
   return (
-    <div className="bg-[#FFFDE8] h-screen w-auto">
+    <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
       <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">
         Students
       </div>
-      <div className="h-full w-auto mx-10">
+      <div className="w-auto mx-10">
         <StudentHeader
           handleSelectAll={handleSelectAll}
           selected={
@@ -41,6 +44,8 @@ const Students = () => {
           }
         />
         <div className="w-auto h-[1px] bg-orange-300 mx-2"></div>
+      </div>
+      <div className="flex-1 w-auto mx-10 mb-10 overflow-y-scroll">
         {studentList.map((name) => {
           return (
             <StudentItem

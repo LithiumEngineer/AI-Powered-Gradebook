@@ -1,4 +1,5 @@
 import { GrFormCheckmark } from "react-icons/gr"
+import Button from "./Button"
 
 const StudentHeader = ({ selected, handleSelectAll }) => {
   return (
@@ -20,8 +21,9 @@ const StudentHeader = ({ selected, handleSelectAll }) => {
         </div>
         <div className={`ml-3 text-[#4C8492] font-bold`}>Name</div>
       </div>
-      <div className="bg-[#4C8492] px-4 py-2 rounded-full text-sm text-white mr-3 hover:cursor-pointer">
-        Add Student
+      <div className="flex">
+        <Button name="Generate Test" />
+        <Button name="Add Student" />
       </div>
     </div>
   )
