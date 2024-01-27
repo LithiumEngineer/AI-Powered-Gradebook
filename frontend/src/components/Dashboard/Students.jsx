@@ -1,9 +1,11 @@
 import { useState } from "react"
 import StudentItem from "./StudentItem"
 import StudentHeader from "./StudentHeader"
+import PopupModal from "./PopupModal"
 
 const Students = () => {
   const [selected, setSelected] = useState([]) //make into a list of all selected students later
+  const [showPopup, setShowPopup] = useState(false)
 
   const handleSelect = (name) => {
     //if in list, remove. otherwise add to list
@@ -30,8 +32,17 @@ const Students = () => {
     studentList.push("Student #" + i)
   }
 
+  const closePopUp = () => {
+    setShowPopup(false)
+  }
+
+  const openPopUp = () => {
+    setShowPopup(true)
+  }
+
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
+      <PopupModal open={showPopup} onClose={() => closePopUp()} />
       <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">
         Students
       </div>
@@ -52,6 +63,7 @@ const Students = () => {
               name={name}
               selected={selected.includes(name)}
               handleSelect={handleSelect}
+              viewDetails={() => setShowPopup(true)}
             />
           )
         })}
