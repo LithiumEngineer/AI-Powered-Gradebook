@@ -14,6 +14,7 @@ const Tests = () => {
   const [selected, setSelected] = useState([])
   const [showPopup, setShowPopup] = useState(false)
   const [testList, setTestList] = useState([])
+  const [test, setTest] = useState({}) // for popup modal
 
   const handleSelect = (test) => {
     //if in list, remove. otherwise add to list
@@ -39,13 +40,14 @@ const Tests = () => {
     setShowPopup(false)
   }
 
-  const openPopUp = () => {
+  const openPopUp = (id) => {
     setShowPopup(true)
+    setTest(testList.find((test) => test.id === id))
   }
 
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
-      <PopupModal open={showPopup} onClose={() => closePopUp()} />
+      <PopupModal open={showPopup} onClose={() => closePopUp()} type="test" test={test} />
       <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">Tests</div>
       <div className="w-auto mx-10">
         <TestHeader
@@ -66,7 +68,7 @@ const Tests = () => {
               name={test.topic}
               selected={selected.includes(test.id)}
               handleSelect={handleSelect}
-              viewDetails={() => setShowPopup(true)}
+              openPopUp={openPopUp}
             />
           )
         })}

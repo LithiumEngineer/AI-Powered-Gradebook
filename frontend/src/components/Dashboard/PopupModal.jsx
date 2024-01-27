@@ -7,21 +7,22 @@ const PopupModal = ({ open, onClose, type, student, test }) => {
     >
 
       <div className="relative flex-1 h-4/5 mx-20 bg-white rounded-lg">
+        <div className="w-fit ml-auto" onClick={onClose}>Close</div>
         {type === "student" ? (
           <>
             <h1>{student.last_name}, {student.first_name}</h1>
+            <br />
             <h2>Analytics go here.</h2>
           </>
         ) : type === "test" ? (
           <>
             <h1>{test.topic}</h1>
+            <br />
             <h2>Analytics go here.</h2>
           </>
         ) : (
           null
         )}
-
-        <div className="w-fit ml-auto" onClick={onClose}>Close</div>
       </div>
     </div>
   )
