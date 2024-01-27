@@ -5,6 +5,7 @@ import StudentItem from "./StudentItem"
 import StudentHeader from "./StudentHeader"
 import PopupModal from "./PopupModal"
 import React from "react"
+import { set } from "cohere-ai/core/schemas"
 
 const Students = ({ sub }) => {
   const [showAddPopup, setShowAddPopup] = useState(false)
@@ -12,12 +13,14 @@ const Students = ({ sub }) => {
   const [showDetailsPopup, setShowDetailsPopup] = useState(false)
   const [studentList, setStudentList] = useState([])
   const [student, setStudent] = useState({}) // for popup modal
-  const [deletedLoading, setDeletedLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (showAddPopup) return;
+    setIsLoading(true);
     axios.get(`http://localhost:3500/students/${sub}`).then((res) => {
       setStudentList(res.data)
+      setIsLoading(false)
     })
   }, [showAddPopup])
 
@@ -41,7 +44,7 @@ const Students = ({ sub }) => {
   }
 
   const handleDelete = async (id) => {
-    setDeletedLoading(true)
+    setIsLoading(true)
     try {
       await axios.delete(`http://localhost:3500/students`, { data: { record_id: id } })
     } catch (err) {
@@ -49,7 +52,7 @@ const Students = ({ sub }) => {
     }
 
     axios.get(`http://localhost:3500/students/${sub}`).then((res) => {
-      setDeletedLoading(false)
+      setIsLoading(false)
       setSelected([])
       setStudentList(res.data)
     })
@@ -72,7 +75,7 @@ const Students = ({ sub }) => {
     setShowAddPopup(false)
   }
 
-  if (deletedLoading) return <div className="flex h-screen bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>;
+  if (isLoading) return <div className="flex h-screen bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>;
 
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">

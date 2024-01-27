@@ -5,6 +5,7 @@ import TestHeader from "./TestHeader"
 import PopupModal from "./PopupModal"
 import React from "react"
 import { RingLoader } from "react-spinners"
+import { set } from "cohere-ai/core/schemas"
 
 const Tests = ({ sub }) => {
   const [selected, setSelected] = useState([])
@@ -12,12 +13,14 @@ const Tests = ({ sub }) => {
   const [showAddPopup, setShowAddPopup] = useState(false)
   const [testList, setTestList] = useState([])
   const [test, setTest] = useState({}) // for popup modal
-  const [deletedLoading, setDeletedLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (showAddPopup) return;
+    setIsLoading(true)
     axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
       setTestList(res.data)
+      setIsLoading(false)
     })
   }, [showAddPopup])
 
@@ -42,7 +45,7 @@ const Tests = ({ sub }) => {
   }
 
   const handleDelete = async (id) => {
-    setDeletedLoading(true)
+    setIsLoading(true)
     try {
       await axios.delete(`http://localhost:3500/tests`, { data: { record_id: id } })
     } catch (err) {
@@ -50,7 +53,7 @@ const Tests = ({ sub }) => {
     }
 
     axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
-      setDeletedLoading(false)
+      setIsLoading(false)
       setSelected([])
       setTestList(res.data)
     })
@@ -73,7 +76,7 @@ const Tests = ({ sub }) => {
     setShowAddPopup(false)
   }
 
-  if (deletedLoading) return <div className="flex h-screen bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>;
+  if (isLoading) return <div className="flex h-screen bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>;
 
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
