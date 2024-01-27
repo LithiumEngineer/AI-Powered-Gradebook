@@ -2,9 +2,12 @@ import { useState } from "react"
 import Sidebar from "../Sidebar"
 import Students from "./Students"
 import Tests from "./Tests"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Overview")
+  const {user} = useAuth0()
+  console.log(user)
   return (
     <div className="flex w-screen h-screen">
       <Sidebar
