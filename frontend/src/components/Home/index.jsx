@@ -13,14 +13,12 @@ const Home = () => {
           <img src="avatar.png" className="p-3"></img>
         </div>
         <div className="text-[#4C8492] flex-1 mx-10">
-          <div className="font-bold italic text-lg">Tired of worksheets?</div>
-          <div className="text-2xl italic font-bold">Introducing</div>
           <div className="font-bold text-5xl">WorkSheeps</div>
-          <div className="font-bold italic text-lg mt-2">
+          <div className="font-bold italic text-lg mt-4">
             Every student shines in their own way, so why only use
             one-size-fits-all worksheets?{" "}
           </div>
-          <div className="mt-2">
+          <div className="mt-4">
             <div className="inline font-bold">Say hello to WorkSheeps!</div>
             <div className="inline">
               {" "}
