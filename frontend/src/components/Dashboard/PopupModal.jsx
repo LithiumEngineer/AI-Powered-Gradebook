@@ -1,12 +1,10 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Button from "./Button"
 import { RingLoader } from "react-spinners"
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import axios from "axios"
 
 const PopupModal = ({ open, onClose, type, student = null, test = null, sub }) => {
-
-  //TODO: fetch list of student
 
   const [studentList, setStudentList] = useState([])
   const [testName, setTestName] = useState("")
@@ -36,6 +34,25 @@ const PopupModal = ({ open, onClose, type, student = null, test = null, sub }) =
     setIsCompleted(true)
     setTestName("")
     setMaterial("")
+  }
+
+  const submitStudentForm = async () => {
+    setIsLoading(true)
+
+    try {
+      await axios.post("http://localhost:3500/students", {
+        first_name: firstName,
+        last_name: lastName,
+        teacher_id: sub
+      })
+    } catch (err) {
+      console.log(err)
+    }
+
+    setIsLoading(false)
+    setIsCompleted(true)
+    setFirstName("")
+    setLastName("")
   }
 
   const cancelForm = () => {
@@ -161,7 +178,7 @@ const PopupModal = ({ open, onClose, type, student = null, test = null, sub }) =
               </div>
               <div className="mt-5 flex justify-end">
                 <Button name="Cancel" onClick={cancelForm} />
-                <Button name="Submit" onClick={submitTestForm} />
+                <Button name="Submit" onClick={submitStudentForm} />
               </div>
             </>
           ) : null}

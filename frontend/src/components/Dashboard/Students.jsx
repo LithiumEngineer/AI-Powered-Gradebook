@@ -6,15 +6,17 @@ import PopupModal from "./PopupModal"
 import React from "react"
 
 const Students = ({ sub }) => {
+  const [showAddPopup, setShowAddPopup] = useState(false)
+  
   useEffect(() => {
+    if (showAddPopup) return;
     axios.get(`http://localhost:3500/students/${sub}`).then((res) => {
       setStudentList(res.data)
     })
-  }, [])
+  }, [showAddPopup])
 
   const [selected, setSelected] = useState([])
   const [showDetailsPopup, setShowDetailsPopup] = useState(false)
-  const [showAddPopup, setShowAddPopup] = useState(false)
   const [studentList, setStudentList] = useState([])
   const [student, setStudent] = useState({}) // for popup modal
 
