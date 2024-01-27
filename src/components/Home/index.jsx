@@ -1,5 +1,11 @@
+import MenuBar from "../MenuBar"
+
 const Home = () => {
-  return <div className="text-blue-700">test</div>
+  return (
+    <div>
+      <MenuBar />
+    </div>
+  )
 }
 
 export default Home
