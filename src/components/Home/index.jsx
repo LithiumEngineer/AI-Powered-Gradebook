@@ -8,9 +8,9 @@ const Home = () => {
   return (
     <div className="flex flex-col w-screen h-screen bg-[#FFFDE8]">
       <MenuBar />
-      <div className="flex">
-        <div className="w-60 h-60 bg-gray-400 rounded-full"></div>
-        <div className="text-[#4C8492] flex-1">
+      <div className="flex mt-20">
+        <div className="w-60 h-60 bg-gray-400 rounded-full ml-10"></div>
+        <div className="text-[#4C8492] flex-1 mx-10">
           <div className="font-bold italic text-lg">Tired of worksheets?</div>
           <div className="text-2xl italic font-bold">Introducing</div>
           <div className="font-bold text-5xl">WorkSheeps</div>
