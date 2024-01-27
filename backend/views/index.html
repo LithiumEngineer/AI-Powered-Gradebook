@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>WorkSheeps API Documentation</h1>
+    <br>
+
+    <h2>Instructions for <code>GET /students</code> Route</h2>
+    <p>Retrieve all students.</p>
+
+    <h2>Instructions for <code>GET /students/:id</code> Route</h2>
+    <p>Retrieve a student by their Teacher ID.</p>
+    <ul>
+        <li>Replace <code>:id</code> in the route with the actual Teacher ID.</li>
+    </ul>
+
+    <h2>Instructions for <code>POST /students</code> Route</h2>
+    <p>Create a new student.</p>
+    <ul>
+        <li>Send a <code>POST</code> request to <code>/students</code> route.</li>
+        <li>The body of the request should contain a JSON object with the following properties:</li>
+        <ul>
+            <li><code>{first_name, last_name, teacher_id}</code></li>
+        </ul>
+    </ul>
+
+    <h2>Instructions for <code>PUT /students</code> Route</h2>
+    <p>Update an existing student.</p>
+    <ul>
+        <li>Send a <code>PUT</code> request to <code>/students</code> route.</li>
+        <li>The body of the request should contain a JSON object with the following properties:</li>
+        <ul>
+            <li><code>{record_id, first_name, last_name, teacher_id}</code></li>
+        </ul>
+    </ul>
+
+    <h2>Instructions for <code>DELETE /students</code> Route</h2>
+    <p>Delete a student by their record ID.</p>
+    <ul>
+        <li>Send a <code>DELETE</code> request to <code>/students</code> route.</li>
+        <li>The body of the request should contain a JSON object with the following properties:</li>
+        <ul>
+            <li><code>{record_id}</code></li>
+        </ul>
+    </ul>
+
+    <h2>Instructions for <code>GET /tests</code> Route</h2>
+    <p>Retrieve all tests.</p>
+
+    <h2>Instructions for <code>GET /tests/:id</code> Route</h2>
+    <p>Retrieve a test by Owner ID.</p>
+    <ul>
+        <li>Replace <code>:id</code> in the route with the actual Owner ID.</li>
+    </ul>
+
+    <h2>Instructions for <code>POST /tests</code> Route</h2>
+    <p>Create a new test.</p>
+    <ul>
+        <li>Send a <code>POST</code> request to <code>/tests</code> route.</li>
+        <li>The body of the request should contain a JSON object with the following properties:</li>
+        <ul>
+            <li><code>{topic, student_grades_json, test_type, owner_id}</code></li>
+        </ul>
+    </ul>
+
+    <h2>Instructions for <code>PUT /tests</code> Route</h2>
+    <p>Update an existing test by its record ID.</p>
+    <ul>
+        <li>Send a <code>PUT</code> request to <code>/tests</code> route.</li>
+        <li>The body of the request should contain a JSON object with the following properties:</li>
+        <ul>
+            <li><code>{record_id, topic, student_grades_json, test_type, owner_id}</code></li>
+        </ul>
+    </ul>
+
+    <h2>Instructions for <code>DELETE /tests</code> Route</h2>
+    <p>Delete a test by its record ID.</p>
+    <ul>
+        <li>Send a <code>DELETE</code> request to <code>/tests</code> route.</li>
+        <li>The body of the request should contain a JSON object with the following properties:</li>
+        <ul>
+            <li><code>{record_id}</code></li>
+        </ul>
+    </ul>
+
+    <br />
+
+    <footer>
+        <p>API Documentation - &copy; <span id="currentYear"></span> WorkSheeps</p>
+    </footer>
+
+    <script>
+        var currentYear = new Date().getFullYear();
+        document.getElementById("currentYear").textContent = currentYear;
+    </script>
+</body>
+
+</html>

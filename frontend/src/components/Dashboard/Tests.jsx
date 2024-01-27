@@ -1,9 +1,11 @@
 import { useState } from "react"
 import TestItem from "./TestItem"
 import TestHeader from "./TestHeader"
+import PopupModal from "./PopupModal"
 
 const Tests = () => {
   const [selected, setSelected] = useState([]) //make into a list of all selected students later
+  const [showPopup, setShowPopup] = useState(false)
 
   const handleSelect = (name) => {
     //if in list, remove. otherwise add to list
@@ -30,11 +32,18 @@ const Tests = () => {
     testList.push("Test #" + i)
   }
 
+  const closePopUp = () => {
+    setShowPopup(false)
+  }
+
+  const openPopUp = () => {
+    setShowPopup(true)
+  }
+
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
-      <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">
-        Tests
-      </div>
+      <PopupModal open={showPopup} onClose={() => closePopUp()} />
+      <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">Tests</div>
       <div className="w-auto mx-10">
         <TestHeader
           handleSelectAll={handleSelectAll}
@@ -52,6 +61,7 @@ const Tests = () => {
               name={name}
               selected={selected.includes(name)}
               handleSelect={handleSelect}
+              viewDetails={() => setShowPopup(true)}
             />
           )
         })}
