@@ -25,6 +25,7 @@ const getAllTests = asyncHandler(async (req, res) => {
         if (record.data_type.value === 'test') {
             return {
                 id: record.$id.value,
+                name: record.name.value,
                 topic: record.topic.value,
                 student_grades_json: record.student_grades_json.value,
                 test_type: record.test_type.value,
@@ -56,6 +57,7 @@ const getTestByOwnerId = asyncHandler(async (req, res) => {
         if (record.data_type.value === 'test' && record.owner_id.value === req.params.id) {
             return {
                 id: record.$id.value,
+                name: record.name.value,
                 topic: record.topic.value,
                 student_grades_json: record.student_grades_json.value,
                 test_type: record.test_type.value,
@@ -74,8 +76,8 @@ const getTestByOwnerId = asyncHandler(async (req, res) => {
 // @route   POST /tests
 // @access  Private
 const createTest = asyncHandler(async (req, res) => {
-    const { topic, student_grades_json, test_type, owner_id } = req.body;
-    if (!topic || !student_grades_json || !test_type || !owner_id) {
+    const { name, topic, student_grades_json, test_type, owner_id } = req.body;
+    if (!name || !topic || !student_grades_json || !test_type || !owner_id) {
         return res.status(400).json({ message: 'Missing required fields' });
     }
 
@@ -84,6 +86,9 @@ const createTest = asyncHandler(async (req, res) => {
         'record': {
             'data_type': {
                 'value': 'test'
+            },
+            'name': {
+                'value': name
             },
             'topic': {
                 'value': topic
@@ -121,8 +126,8 @@ const createTest = asyncHandler(async (req, res) => {
 // @route   PUT /tests/:id
 // @access  Private
 const updateTest = asyncHandler(async (req, res) => {
-    const { record_id, topic, student_grades_json, test_type, owner_id } = req.body;
-    if (!record_id || !topic || !student_grades_json || !test_type || !owner_id) {
+    const { record_id, name, topic, student_grades_json, test_type, owner_id } = req.body;
+    if (!record_id || !name || !topic || !student_grades_json || !test_type || !owner_id) {
         return res.status(400).json({ message: 'Missing required fields' });
     }
 
@@ -130,6 +135,9 @@ const updateTest = asyncHandler(async (req, res) => {
         'app': appID,
         'id': record_id,
         'record': {
+            'name': {
+                'value': name
+            },
             'topic': {
                 'value': topic
             },
