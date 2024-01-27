@@ -35,12 +35,12 @@ const Sidebar = ({ selected, changeSelected }) => {
         />
       </div>
       <div className="flex flex-col mb-5">
-        <SidebarItem
+        {/* <SidebarItem
           icon={<HiOutlineCog6Tooth />}
           name="Settings"
           selected={selected === "Settings"}
           changeSelected={() => changeSelected("Settings")}
-        />
+        /> */}
         
         <SidebarItem
           icon={<HiOutlineArrowLeftOnRectangle />}
