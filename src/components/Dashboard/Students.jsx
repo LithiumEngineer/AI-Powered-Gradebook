@@ -4,6 +4,7 @@ import StudentHeader from "./StudentHeader"
 
 const Students = () => {
   const [selected, setSelected] = useState([]) //make into a list of all selected students later
+
   const handleSelect = (name) => {
     //if in list, remove. otherwise add to list
     if (!selected.includes(name)) {
@@ -13,13 +14,32 @@ const Students = () => {
     }
   }
 
+  const handleSelectAll = () => {
+    if (
+      selected.every((item) => studentList.includes(item)) &&
+      studentList.every((item) => selected.includes(item))
+    ) {
+      setSelected([])
+    } else {
+      setSelected(studentList)
+    }
+  }
+
   let studentList = ["Student #1", "Student #2", "Student #3"]
 
   return (
     <div className="bg-[#FFFDE8] h-screen w-auto">
-        <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">Students</div>
+      <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">
+        Students
+      </div>
       <div className="h-full w-auto mx-10">
-        <StudentHeader />
+        <StudentHeader
+          handleSelectAll={handleSelectAll}
+          selected={
+            selected.every((item) => studentList.includes(item)) &&
+            studentList.every((item) => selected.includes(item))
+          }
+        />
         <div className="w-auto h-[1px] bg-orange-300 mx-2"></div>
         {studentList.map((name) => {
           return (

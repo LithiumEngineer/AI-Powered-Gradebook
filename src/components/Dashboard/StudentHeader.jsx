@@ -1,4 +1,6 @@
-const StudentHeader = ({ selected }) => {
+import { GrFormCheckmark } from "react-icons/gr"
+
+const StudentHeader = ({ selected, handleSelectAll }) => {
   return (
     <div className={`flex justify-between items-center h-12 w-full`}>
       <div className="flex items-center h-full">
@@ -8,7 +10,7 @@ const StudentHeader = ({ selected }) => {
               ? "bg-[#F09C67] border-[#F09C67]"
               : "bg-white border-[#545F71]"
           }`}
-          onClick={() => {}}
+          onClick={handleSelectAll}
         >
           <div>
             {selected && (
