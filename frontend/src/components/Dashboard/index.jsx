@@ -13,7 +13,7 @@ const Dashboard = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
   
   useEffect(() => {
-    if (!isAuthenticated && !isLoading) navigate("/");
+    if (!isAuthenticated && !isLoading) navigate("/unauthorized");
   }, [isAuthenticated, isLoading, navigate]);
 
   if (user) console.log("Current User: ", user);

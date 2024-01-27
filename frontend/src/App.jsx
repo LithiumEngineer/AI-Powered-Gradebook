@@ -14,6 +14,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="register" element={<Register />} />
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="unauthorized" element={<h1>Unauthorized</h1>} />
       </Route>
     </Routes>
   )
