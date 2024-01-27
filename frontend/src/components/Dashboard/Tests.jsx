@@ -4,9 +4,9 @@ import TestItem from "./TestItem"
 import TestHeader from "./TestHeader"
 import PopupModal from "./PopupModal"
 
-const Tests = () => {
+const Tests = ({ sub }) => {
   useEffect(() => {
-    axios.get("http://localhost:3500/tests").then((res) => {
+    axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
       setTestList(res.data)
     })
   }, [])

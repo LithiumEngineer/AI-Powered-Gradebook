@@ -26,8 +26,8 @@ const Dashboard = () => {
         changeSelected={(selected) => setSelectedTab(selected)}
       />
       <div className="flex-1">
-        {selectedTab === "Students" && <Students />}
-        {selectedTab === "Tests" && <Tests />}
+        {selectedTab === "Students" && <Students sub={user.sub}/>}
+        {selectedTab === "Tests" && <Tests sub={user.sub}/>}
       </div>
     </div>
   );

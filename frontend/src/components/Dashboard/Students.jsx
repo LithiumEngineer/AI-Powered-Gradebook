@@ -4,9 +4,9 @@ import StudentItem from "./StudentItem"
 import StudentHeader from "./StudentHeader"
 import PopupModal from "./PopupModal"
 
-const Students = () => {
+const Students = ({ sub }) => {
   useEffect(() => {
-    axios.get("http://localhost:3500/students").then((res) => {
+    axios.get(`http://localhost:3500/students/${sub}`).then((res) => {
       setStudentList(res.data)
     })
   }, [])
