@@ -23,7 +23,7 @@ const StudentHeader = ({ selected, handleSelectAll, openAddPopup }) => {
         <div className={`ml-3 text-[#4C8492] font-bold`}>Name</div>
       </div>
       <div className="flex">
-        <Button name="Generate Test" onClick={undefined} />
+        <Button name="Generate Worksheet(s)" onClick={undefined} />
         <Button name="Add Student" onClick={openAddPopup}/>
       </div>
     </div>

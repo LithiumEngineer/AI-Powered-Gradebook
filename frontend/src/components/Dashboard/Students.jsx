@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import { RingLoader } from "react-spinners"
 import StudentItem from "./StudentItem"
 import StudentHeader from "./StudentHeader"
 import PopupModal from "./PopupModal"
@@ -7,18 +8,18 @@ import React from "react"
 
 const Students = ({ sub }) => {
   const [showAddPopup, setShowAddPopup] = useState(false)
-  
+  const [selected, setSelected] = useState([])
+  const [showDetailsPopup, setShowDetailsPopup] = useState(false)
+  const [studentList, setStudentList] = useState([])
+  const [student, setStudent] = useState({}) // for popup modal
+  const [deletedLoading, setDeletedLoading] = useState(false)
+
   useEffect(() => {
     if (showAddPopup) return;
     axios.get(`http://localhost:3500/students/${sub}`).then((res) => {
       setStudentList(res.data)
     })
   }, [showAddPopup])
-
-  const [selected, setSelected] = useState([])
-  const [showDetailsPopup, setShowDetailsPopup] = useState(false)
-  const [studentList, setStudentList] = useState([])
-  const [student, setStudent] = useState({}) // for popup modal
 
   const handleSelect = (student) => {
     if (!selected.includes(student)) {
@@ -39,6 +40,21 @@ const Students = ({ sub }) => {
     }
   }
 
+  const handleDelete = async (id) => {
+    setDeletedLoading(true)
+    try {
+      await axios.delete(`http://localhost:3500/students`, { data: { record_id: id } })
+    } catch (err) {
+      console.log(err)
+    }
+
+    axios.get(`http://localhost:3500/students/${sub}`).then((res) => {
+      setDeletedLoading(false)
+      setSelected([])
+      setStudentList(res.data)
+    })
+  }
+
   const closeDetailsPopUp = () => {
     setShowDetailsPopup(false)
   }
@@ -55,6 +71,8 @@ const Students = ({ sub }) => {
   const closeAddPopup = () => {
     setShowAddPopup(false)
   }
+
+  if (deletedLoading) return <div className="flex h-screen bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>;
 
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
@@ -83,6 +101,7 @@ const Students = ({ sub }) => {
               name={student.first_name + " " + student.last_name}
               selected={selected.includes(student.id)}
               handleSelect={handleSelect}
+              handleDelete={handleDelete}
               openDetailsPopUp={openDetailsPopUp}
             />
           )
