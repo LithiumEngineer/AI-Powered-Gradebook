@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react"
 const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Overview")
   const {user} = useAuth0()
-  console.log(user)
+  if(user) console.log("Current User: ", user)
   return (
     <div className="flex w-screen h-screen">
       <Sidebar
