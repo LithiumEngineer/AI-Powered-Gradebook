@@ -32,7 +32,7 @@ const getAllStudents = asyncHandler(async (req, res) => {
     });
     const result = filteredResponse.filter(element => element !== null)
 
-    console.log(result);
+    if (log) console.log(result);
     res.json(result);
 });
 
