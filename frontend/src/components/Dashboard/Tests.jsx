@@ -12,7 +12,8 @@ const Tests = ({ sub }) => {
   }, [])
 
   const [selected, setSelected] = useState([])
-  const [showPopup, setShowPopup] = useState(false)
+  const [showDetailsPopup, setShowDetailsPopup] = useState(false)
+  const [showAddPopup, setShowAddPopup] = useState(false)
   const [testList, setTestList] = useState([])
   const [test, setTest] = useState({}) // for popup modal
 
@@ -36,18 +37,36 @@ const Tests = ({ sub }) => {
     }
   }
 
-  const closePopUp = () => {
-    setShowPopup(false)
+  const closeDetailsPopUp = () => {
+    setShowDetailsPopup(false)
   }
 
-  const openPopUp = (id) => {
-    setShowPopup(true)
+  const openDetailsPopUp = (id) => {
+    setShowDetailsPopup(true)
     setTest(testList.find((test) => test.id === id))
+  }
+
+  const openAddPopup = () => {
+    setShowAddPopup(true)
+  }
+
+  const closeAddPopup = () => {
+    setShowAddPopup(false)
   }
 
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
-      <PopupModal open={showPopup} onClose={() => closePopUp()} type="test" test={test} />
+      <PopupModal
+        open={showAddPopup}
+        onClose={() => closeAddPopup()}
+        type="addtest"
+      />
+      <PopupModal
+        open={showDetailsPopup}
+        onClose={() => closeDetailsPopUp()}
+        type="test"
+        test={test}
+      />
       <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">Tests</div>
       <div className="w-auto mx-10">
         <TestHeader
@@ -56,6 +75,7 @@ const Tests = ({ sub }) => {
             testList.every((test) => selected.includes(test.id)) &&
             testList.length !== 0
           }
+          openAddPopup={openAddPopup}
         />
         <div className="w-auto h-[1px] bg-orange-300 mx-2"></div>
       </div>
@@ -68,7 +88,7 @@ const Tests = ({ sub }) => {
               name={test.name}
               selected={selected.includes(test.id)}
               handleSelect={handleSelect}
-              openPopUp={openPopUp}
+              openDetailsPopUp={openDetailsPopUp}
             />
           )
         })}

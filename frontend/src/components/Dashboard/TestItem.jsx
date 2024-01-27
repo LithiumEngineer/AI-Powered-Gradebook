@@ -1,7 +1,7 @@
 import { GrFormCheckmark } from "react-icons/gr"
 import Button from "./Button"
 
-const TestItem = ({ id, name, selected, handleSelect, openPopUp }) => {
+const TestItem = ({ id, name, selected, handleSelect, openDetailsPopUp }) => {
   return (
     <div
       className={`flex justify-between items-center h-12 w-full rounded-sm ${
@@ -27,7 +27,7 @@ const TestItem = ({ id, name, selected, handleSelect, openPopUp }) => {
           {name}
         </div>
       </div>
-      <Button name="Details" onClick={() => openPopUp(id)}/>
+      <Button name="Details" onClick={() => openDetailsPopUp(id)}/>
     </div>
   )
 }

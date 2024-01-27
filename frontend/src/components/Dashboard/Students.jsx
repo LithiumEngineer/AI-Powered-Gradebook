@@ -3,6 +3,7 @@ import axios from "axios"
 import StudentItem from "./StudentItem"
 import StudentHeader from "./StudentHeader"
 import PopupModal from "./PopupModal"
+import React from "react"
 
 const Students = ({ sub }) => {
   useEffect(() => {
@@ -12,7 +13,8 @@ const Students = ({ sub }) => {
   }, [])
 
   const [selected, setSelected] = useState([])
-  const [showPopup, setShowPopup] = useState(false)
+  const [showDetailsPopup, setShowDetailsPopup] = useState(false)
+  const [showAddPopup, setShowAddPopup] = useState(false)
   const [studentList, setStudentList] = useState([])
   const [student, setStudent] = useState({}) // for popup modal
 
@@ -35,18 +37,27 @@ const Students = ({ sub }) => {
     }
   }
 
-  const closePopUp = () => {
-    setShowPopup(false)
+  const closeDetailsPopUp = () => {
+    setShowDetailsPopup(false)
   }
 
-  const openPopUp = (id) => {
-    setShowPopup(true)
+  const openDetailsPopUp = (id) => {
+    setShowDetailsPopup(true)
     setStudent(studentList.find((student) => student.id === id))
+  }
+
+  const openAddPopup = () => {
+    setShowAddPopup(true)
+  }
+
+  const closeAddPopup = () => {
+    setShowAddPopup(false)
   }
 
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
-      <PopupModal open={showPopup} onClose={() => closePopUp()} type="student" student={student}/>
+      <PopupModal open={showAddPopup} onClose={() => closeAddPopup()} type="addstudent"/>
+      <PopupModal open={showDetailsPopup} onClose={() => closeDetailsPopUp()} type="student" student={student}/>
       <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">
         Students
       </div>
@@ -57,6 +68,7 @@ const Students = ({ sub }) => {
             studentList.every((student) => selected.includes(student.id)) &&
             studentList.length !== 0
           }
+          openAddPopup={openAddPopup}
         />
         <div className="w-auto h-[1px] bg-orange-300 mx-2"></div>
       </div>
@@ -69,7 +81,7 @@ const Students = ({ sub }) => {
               name={student.first_name + " " + student.last_name}
               selected={selected.includes(student.id)}
               handleSelect={handleSelect}
-              openPopUp={openPopUp}
+              openDetailsPopUp={openDetailsPopUp}
             />
           )
         })}
