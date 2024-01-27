@@ -1,35 +1,37 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
 import TestItem from "./TestItem"
 import TestHeader from "./TestHeader"
 import PopupModal from "./PopupModal"
 
 const Tests = () => {
-  const [selected, setSelected] = useState([]) //make into a list of all selected students later
-  const [showPopup, setShowPopup] = useState(false)
+  useEffect(() => {
+    axios.get("http://localhost:3500/tests").then((res) => {
+      setTestList(res.data)
+    })
+  }, [])
 
-  const handleSelect = (name) => {
+  const [selected, setSelected] = useState([])
+  const [showPopup, setShowPopup] = useState(false)
+  const [testList, setTestList] = useState([])
+
+  const handleSelect = (test) => {
     //if in list, remove. otherwise add to list
-    if (!selected.includes(name)) {
-      setSelected([...selected, name])
+    if (!selected.includes(test)) {
+      setSelected([...selected, test])
     } else {
-      setSelected(selected.filter((item) => item != name))
+      setSelected(selected.filter((item) => item != test))
     }
   }
 
   const handleSelectAll = () => {
     if (
-      selected.every((item) => testList.includes(item)) &&
-      testList.every((item) => selected.includes(item))
+      testList.every((test) => selected.includes(test.id))
     ) {
       setSelected([])
     } else {
-      setSelected(testList)
+      setSelected(testList.map((test) => test.id))
     }
-  }
-
-  let testList = []
-  for (let i = 1; i <= 30; i++) {
-    testList.push("Test #" + i)
   }
 
   const closePopUp = () => {
@@ -48,18 +50,19 @@ const Tests = () => {
         <TestHeader
           handleSelectAll={handleSelectAll}
           selected={
-            selected.every((item) => testList.includes(item)) &&
-            testList.every((item) => selected.includes(item))
+            testList.every((test) => selected.includes(test.id))
           }
         />
         <div className="w-auto h-[1px] bg-orange-300 mx-2"></div>
       </div>
       <div className="flex-1 w-auto mx-10 mb-10 overflow-y-scroll">
-        {testList.map((name) => {
+        {testList.map((test) => {
           return (
             <TestItem
-              name={name}
-              selected={selected.includes(name)}
+              key={test.id}
+              id={test.id}
+              name={test.topic}
+              selected={selected.includes(test.id)}
               handleSelect={handleSelect}
               viewDetails={() => setShowPopup(true)}
             />
