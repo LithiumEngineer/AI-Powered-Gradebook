@@ -16,7 +16,8 @@ const PopupModal = ({ open, onClose, type, student, test }) => {
           </>
         ) : type === "test" ? (
           <>
-            <h1>{test.topic}</h1>
+            <h1>Name: {test.name}</h1>
+            <h2>Topic: {test.topic}</h2>
             <br />
             <h2>Analytics go here.</h2>
           </>

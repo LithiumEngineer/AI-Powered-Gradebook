@@ -65,7 +65,7 @@ const Tests = ({ sub }) => {
             <TestItem
               key={test.id}
               id={test.id}
-              name={test.topic}
+              name={test.name}
               selected={selected.includes(test.id)}
               handleSelect={handleSelect}
               openPopUp={openPopUp}
