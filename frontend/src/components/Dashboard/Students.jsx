@@ -1,14 +1,21 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
 import StudentItem from "./StudentItem"
 import StudentHeader from "./StudentHeader"
 import PopupModal from "./PopupModal"
 
 const Students = () => {
-  const [selected, setSelected] = useState([]) //make into a list of all selected students later
+  useEffect(() => {
+    axios.get("http://localhost:3500/students").then((res) => {
+      setStudentList(res.data)
+    })
+  }, [])
+
+  const [selected, setSelected] = useState([])
   const [showPopup, setShowPopup] = useState(false)
+  const [studentList, setStudentList] = useState([])
 
   const handleSelect = (name) => {
-    //if in list, remove. otherwise add to list
     if (!selected.includes(name)) {
       setSelected([...selected, name])
     } else {
@@ -25,11 +32,6 @@ const Students = () => {
     } else {
       setSelected(studentList)
     }
-  }
-
-  let studentList = []
-  for (let i = 1; i <= 30; i++) {
-    studentList.push("Student #" + i)
   }
 
   const closePopUp = () => {
@@ -57,10 +59,11 @@ const Students = () => {
         <div className="w-auto h-[1px] bg-orange-300 mx-2"></div>
       </div>
       <div className="flex-1 w-auto mx-10 mb-10 overflow-y-scroll">
-        {studentList.map((name) => {
+        {studentList.map((student) => {
           return (
             <StudentItem
-              name={name}
+              key={student.id}
+              name={student.first_name + " " + student.last_name}
               selected={selected.includes(name)}
               handleSelect={handleSelect}
               viewDetails={() => setShowPopup(true)}
