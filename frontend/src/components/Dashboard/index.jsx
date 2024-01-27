@@ -17,7 +17,7 @@ const Dashboard = () => {
   }, [isAuthenticated, isLoading, navigate]);
 
   if (user) console.log("Current User: ", user);
-  if (isLoading) return <div className="flex h-screen justify-center items-center align-middle"><RingLoader /></div>;
+  if (isLoading) return <div className="flex h-screen bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>;
 
   return (
     <div className="flex w-screen h-screen">
