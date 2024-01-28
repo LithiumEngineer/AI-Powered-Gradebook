@@ -9,6 +9,7 @@ import {
 } from "react-icons/hi2"
 import SidebarItem from "./SidebarItem"
 import { useAuth0 } from "@auth0/auth0-react"
+import React from "react"
 
 const Sidebar = ({ selected, changeSelected }) => {
   const { logout } = useAuth0()
@@ -35,19 +36,16 @@ const Sidebar = ({ selected, changeSelected }) => {
         />
       </div>
       <div className="flex flex-col mb-5">
-        {/* <SidebarItem
-          icon={<HiOutlineCog6Tooth />}
-          name="Settings"
-          selected={selected === "Settings"}
-          changeSelected={() => changeSelected("Settings")}
-        /> */}
-        
         <SidebarItem
           icon={<HiOutlineArrowLeftOnRectangle />}
           name="Sign out"
           changeSelected={() =>
             logout({ logoutParams: { returnTo: window.location.origin } })
           }
+        />
+        <img
+          src="WorkSheeps.png"
+          className="object-contain h-10 w-full mt-5"
         />
       </div>
     </div>
