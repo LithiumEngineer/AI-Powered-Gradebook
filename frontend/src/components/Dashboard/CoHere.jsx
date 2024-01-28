@@ -21,7 +21,7 @@ const CoHere = ({ student_test_data, setShowCoHere, question_num=10 }) => {
           let cursorY = 10;
           let currentPage = 1;
     
-          textLines.forEach((line, index) => {
+          textLines.forEach((line) => {
             if (cursorY > pdf.internal.pageSize.height - 20) {
               pdf.addPage();
               cursorY = 10;
@@ -64,7 +64,13 @@ const CoHere = ({ student_test_data, setShowCoHere, question_num=10 }) => {
 
     return (
         <div className="m-4 p-4 border rounded-lg bg-gray-100">
+            <div className="flex justify-between items-center">
             <h1 className="text-lg font-semibold mb-4">Generated Worksheet:</h1>
+            <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={handleDownloadPDF}
+            > Download PDF </button>
+            </div>
             <pre className="whitespace-pre-wrap font-mono text-sm text-gray-700">
                 {result.generations[0].text}
             </pre>
