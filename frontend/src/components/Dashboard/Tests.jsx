@@ -5,6 +5,7 @@ import TestHeader from "./TestHeader"
 import PopupModal from "./PopupModal"
 import React from "react"
 import { RingLoader } from "react-spinners"
+// @ts-ignore
 import { set } from "cohere-ai/core/schemas"
 
 const Tests = ({ sub }) => {
@@ -18,7 +19,8 @@ const Tests = ({ sub }) => {
   useEffect(() => {
     if (showAddPopup) return;
     setIsLoading(true)
-    axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
+    // @ts-ignore
+    axios.get(`${import.meta.env.VITE_API_URL}/tests/${sub}`).then((res) => {
       setTestList(res.data)
       setIsLoading(false)
     })
@@ -47,12 +49,14 @@ const Tests = ({ sub }) => {
   const handleDelete = async (id) => {
     setIsLoading(true)
     try {
-      await axios.delete(`http://localhost:3500/tests`, { data: { record_id: id } })
+      // @ts-ignore
+      await axios.delete(`${import.meta.env.VITE_API_URL}/tests`, { data: { record_id: id } })
     } catch (err) {
       console.log(err)
     }
 
-    axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
+    // @ts-ignore
+    axios.get(`${import.meta.env.VITE_API_URL}/tests/${sub}`).then((res) => {
       setIsLoading(false)
       setSelected([])
       setTestList(res.data)

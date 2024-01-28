@@ -6,6 +6,7 @@ import StudentHeader from "./StudentHeader"
 import PopupModal from "./PopupModal"
 import CoHere from "./CoHere"
 import React from "react"
+// @ts-ignore
 import { data } from "autoprefixer"
 
 const Students = ({ sub }) => {
@@ -22,14 +23,16 @@ const Students = ({ sub }) => {
   useEffect(() => {
     if (showAddPopup) return;
     setIsLoading(true);
-    axios.get(`http://localhost:3500/students/${sub}`).then((res) => {
+    // @ts-ignore
+    axios.get(`${import.meta.env.VITE_API_URL}/students/${sub}`).then((res) => {
       setStudentList(res.data)
       setIsLoading(false)
     })
   }, [showAddPopup])
 
   useEffect(() => {
-    axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
+    // @ts-ignore
+    axios.get(`${import.meta.env.VITE_API_URL}/tests/${sub}`).then((res) => {
       setTestList(res.data)
     })
   }, [])
@@ -56,12 +59,14 @@ const Students = ({ sub }) => {
   const handleDelete = async (id) => {
     setIsLoading(true)
     try {
-      await axios.delete(`http://localhost:3500/students`, { data: { record_id: id } })
+      // @ts-ignore
+      await axios.delete(`${import.meta.env.VITE_API_URL}/students`, { data: { record_id: id } })
     } catch (err) {
       console.log(err)
     }
 
-    axios.get(`http://localhost:3500/students/${sub}`).then((res) => {
+    // @ts-ignore
+    axios.get(`${import.meta.env.VITE_API_URL}/students/${sub}`).then((res) => {
       setIsLoading(false)
       setSelected([])
       setStudentList(res.data)

@@ -28,7 +28,8 @@ const PopupModal = ({
   const { isAuthenticated, user } = useAuth0()
 
   useEffect(() => {
-    axios.get(`http://localhost:3500/students/${user.sub}`).then((res) => {
+    // @ts-ignore
+    axios.get(`${import.meta.env.VITE_API_URL}/students/${user.sub}`).then((res) => {
       setStudentList(res.data)
       let newGradesList = {}
       res.data.forEach((student) => {
@@ -49,7 +50,8 @@ const PopupModal = ({
     })
     console.log(json)
     try {
-      await axios.post("http://localhost:3500/tests", {
+      // @ts-ignore
+      await axios.post(`${import.meta.env.VITE_API_URL}/tests`, {
         name: testName,
         topic: material,
         student_grades_json: JSON.stringify({ json }),
@@ -70,7 +72,8 @@ const PopupModal = ({
     setIsLoading(true)
 
     try {
-      await axios.post("http://localhost:3500/students", {
+      // @ts-ignore
+      await axios.post(`${import.meta.env.VITE_API_URL}/students`, {
         first_name: firstName,
         last_name: lastName,
         teacher_id: sub,
