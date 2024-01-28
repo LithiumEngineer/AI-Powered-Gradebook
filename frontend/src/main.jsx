@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       domain="dev-xpteltz632r6ek4d.us.auth0.com"
       clientId="IjArsD9bP6P8F9DD0fAazTHrpC4wYw9R"
       authorizationParams={{
-        redirect_uri: "http://localhost:3000/dashboard",
+        redirect_uri: process.env.NODE_ENV === "development" ? "http://localhost:3000/dashboard" : "https://worksheeps.onrender.com/dashboard"
       }}
     >
       <BrowserRouter>
