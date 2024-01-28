@@ -6,8 +6,6 @@ import StudentHeader from "./StudentHeader"
 import PopupModal from "./PopupModal"
 import CoHere from "./CoHere"
 import React from "react"
-// @ts-ignore
-import { data } from "autoprefixer"
 
 const Students = ({ sub }) => {
   const [showAddPopup, setShowAddPopup] = useState(false)
@@ -119,7 +117,7 @@ const Students = ({ sub }) => {
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
       <PopupModal open={showAddPopup} onClose={() => closeAddPopup()} type="addstudent" sub={sub}/>
-      <PopupModal open={showDetailsPopup} onClose={() => closeDetailsPopUp()} type="student" student={student} sub={sub}/>
+      <PopupModal open={showDetailsPopup} onClose={() => closeDetailsPopUp()} type="student" student={student} sub={sub} genJson={generateStudentJson}/>
       <div className="text-3xl font-bold text-[#545F71] py-10 ml-10">
         Students
       </div>

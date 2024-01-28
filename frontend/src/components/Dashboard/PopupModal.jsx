@@ -14,6 +14,7 @@ const PopupModal = ({
   student = null,
   test = null,
   sub,
+  genJson=null
 }) => {
   const [studentList, setStudentList] = useState([])
   const [gradesList, setGradesList] = useState({})
@@ -145,7 +146,7 @@ const PopupModal = ({
               <div className="text-3xl text-[#4C8492] font-bold">
                 {student.first_name} {student.last_name}
               </div>
-              <Chart />
+              <Chart id={student.id} name={student.first_name+" "+student.last_name} genJson={genJson}/>
             </>
           ) : type === "test" ? (
             <>
