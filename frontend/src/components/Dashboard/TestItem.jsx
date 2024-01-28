@@ -10,7 +10,7 @@ const TestItem = ({ id, name, selected, handleSelect, handleDelete, openDetailsP
     >
       <div className="flex items-center h-full">
         <div
-          className={`w-5 h-5 ml-4 rounded-sm border-2 border-solid duration-100 hover:cursor-pointer ${selected
+          className={`min-w-5 min-h-5 ml-4 rounded-sm border-2 border-solid duration-100 hover:cursor-pointer ${selected
               ? "bg-[#F09C67] border-[#F09C67]"
               : "bg-white border-[#545F71]"
             }`}
@@ -22,7 +22,7 @@ const TestItem = ({ id, name, selected, handleSelect, handleDelete, openDetailsP
             )}
           </div>
         </div>
-        <div className={`ml-3 text-[#4C8492] ${selected && "font-bold"}`}>
+        <div className={`ml-3 text-[#4C8492] ${selected && "font-bold"} line-clamp-1`}>
           {name}
         </div>
       </div>
