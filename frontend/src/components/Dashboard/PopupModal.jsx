@@ -4,6 +4,8 @@ import { RingLoader } from "react-spinners"
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import axios from "axios"
 import { useAuth0 } from "@auth0/auth0-react"
+import Chart from "./Chart"
+import { IoIosCheckmarkCircle } from "react-icons/io"
 
 const PopupModal = ({
   open,
@@ -108,7 +110,10 @@ const PopupModal = ({
           />
           <div className="flex-1 flex flex-col h-auto mx-5 mt-2 mb-10">
             {isCompleted ? (
-              <h1 className="text-3xl text-[#545F71] font-bold">Success!</h1>
+              <div className="flex items-center text-5xl text-[#52da57] font-bold w-fit h-fit mx-auto my-auto">
+                <div>Success!</div>
+                <IoIosCheckmarkCircle />
+              </div>
             ) : (
               <div className="flex h-full bg-[#FFFDE8] justify-center items-center align-middle">
                 <RingLoader />
@@ -137,6 +142,7 @@ const PopupModal = ({
               <div className="text-3xl text-[#4C8492] font-bold">
                 {student.first_name} {student.last_name}
               </div>
+              <Chart />
             </>
           ) : type === "test" ? (
             <>
