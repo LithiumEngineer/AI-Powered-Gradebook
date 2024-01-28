@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div className="flex flex-col w-screen h-screen bg-[#FFFDE8]">
       <MenuBar />
-      <div className="flex mt-20">
+      <div className="flex mt-10">
         <div className="w-60 h-60 bg-[#D9D9D9] rounded-full ml-10">
           <img src="avatar.png" className="p-3"></img>
         </div>
@@ -43,6 +43,20 @@ const Home = () => {
           >
             Get Started!
           </div>
+        </div>
+      </div>
+      <div className="flex-1 flex justify-between w-auto mt-10 mb-5 mx-10 text-[#F09C67] text-3xl text-center">
+        <div className="flex-1 max-h-[400px] max-w-[300px] mx-10 border-[2px] border-dashed border-[#F09C67]">
+          <div className="mt-5">Customizable</div>
+          <img src="paintbrush.png" />
+        </div>
+        <div className="flex-1 max-h-[400px] max-w-[300px] mx-10 border-[2px] border-dashed border-[#F09C67]">
+          <div className="mt-5">Easy to use</div>
+          <img src="point.png" />
+        </div>
+        <div className="flex-1 max-h-[400px] max-w-[300px] mx-10 border-[2px] border-dashed border-[#F09C67]">
+          <div className="mt-5">Built for student success</div>
+          <img src="star.png" />
         </div>
       </div>
     </div>
