@@ -38,7 +38,7 @@ const Home = () => {
             </div>
           </div>
           <div
-            className="rounded-sm px-12 py-3 bg-[#F09C67] w-fit h-fit mx-auto mt-5 text-white hover:cursor-pointer hover:bg-[#f08e50]"
+            className="rounded-full px-12 py-3 bg-[#F09C67] w-fit h-fit mx-auto mt-5 text-white border-[2px] border-solid border-[#f08e50] hover:cursor-pointer hover:bg-white hover:underline hover:text-[#f08e50] duration-100"
             onClick={() => loginWithRedirect()}
           >
             Get Started!
