@@ -4,7 +4,6 @@ import { RingLoader } from "react-spinners"
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import axios from "axios"
 import { useAuth0 } from "@auth0/auth0-react"
-import Chart from "./Chart"
 
 const PopupModal = ({
   open,
@@ -138,7 +137,6 @@ const PopupModal = ({
               <div className="text-3xl text-[#4C8492] font-bold">
                 {student.first_name} {student.last_name}
               </div>
-              <Chart data={undefined} />
             </>
           ) : type === "test" ? (
             <>
