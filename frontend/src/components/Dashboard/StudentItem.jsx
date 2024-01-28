@@ -9,6 +9,7 @@ const StudentItem = ({
   handleSelect,
   handleDelete,
   openDetailsPopUp,
+  handleWorksheetGeneration
 }) => {
   return (
     <div
@@ -41,6 +42,7 @@ const StudentItem = ({
       </div>
       <div className="flex items-center h-full">
         <Button name="Details" onClick={() => openDetailsPopUp(id)} />
+        <Button name="Generate Worksheet" onClick={() => handleWorksheetGeneration(id)} />
         <Button name="Delete" onClick={() => handleDelete(id)} />
       </div>
     </div>

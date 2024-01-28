@@ -4,15 +4,20 @@ import { RingLoader } from "react-spinners"
 import StudentItem from "./StudentItem"
 import StudentHeader from "./StudentHeader"
 import PopupModal from "./PopupModal"
+import CoHere from "./CoHere"
 import React from "react"
+import { data } from "autoprefixer"
 
 const Students = ({ sub }) => {
   const [showAddPopup, setShowAddPopup] = useState(false)
   const [selected, setSelected] = useState([])
   const [showDetailsPopup, setShowDetailsPopup] = useState(false)
   const [studentList, setStudentList] = useState([])
+  const [testList, setTestList] = useState([])
+  const [studentGradesJson, setStudentGradesJson] = useState({}) // for cohere
   const [student, setStudent] = useState({}) // for popup modal
   const [isLoading, setIsLoading] = useState(false)
+  const [showCoHere, setShowCoHere] = useState(false)
 
   useEffect(() => {
     if (showAddPopup) return;
@@ -22,6 +27,12 @@ const Students = ({ sub }) => {
       setIsLoading(false)
     })
   }, [showAddPopup])
+
+  useEffect(() => {
+    axios.get(`http://localhost:3500/tests/${sub}`).then((res) => {
+      setTestList(res.data)
+    })
+  }, [])
 
   const handleSelect = (student) => {
     if (!selected.includes(student)) {
@@ -57,6 +68,29 @@ const Students = ({ sub }) => {
     })
   }
 
+  const generateStudentJson = (id) => {
+    let temp_json = testList.map((test) => {
+      const json_str = test.student_grades_json;
+      const scores = JSON.parse(json_str).json;
+      return (
+        {
+          test_name: test.name,
+          topics: test.topic,
+          mark: scores.find((score) => (score.student_id).toString() === (id).toString()).grade
+        }
+      )
+    });
+
+    return temp_json;
+  }
+
+  const handleWorksheetGeneration = async (id) => {
+    const data_json = generateStudentJson(id);
+    setStudentGradesJson(data_json);
+    //console.log("data_json: ", data_json);
+    setShowCoHere(true);
+  }
+
   const closeDetailsPopUp = () => {
     setShowDetailsPopup(false)
   }
@@ -74,7 +108,8 @@ const Students = ({ sub }) => {
     setShowAddPopup(false)
   }
 
-  if (isLoading) return <div className="flex h-screen bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>;
+  if (showCoHere) return <CoHere student_test_data={studentGradesJson} setShowCoHere={setShowCoHere}/>
+  else if (isLoading) return <div className="flex h-screen bg-[#FFFDE8] justify-center items-center align-middle"><RingLoader /></div>;
 
   return (
     <div className="flex flex-col bg-[#FFFDE8] h-screen w-auto">
@@ -105,6 +140,7 @@ const Students = ({ sub }) => {
               handleSelect={handleSelect}
               handleDelete={handleDelete}
               openDetailsPopUp={openDetailsPopUp}
+              handleWorksheetGeneration={handleWorksheetGeneration}
             />
           )
         })}

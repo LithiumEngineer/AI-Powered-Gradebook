@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { RingLoader } from "react-spinners";
 import { CohereClient } from 'cohere-ai';
 
-const CoHere = ({ sub, student_test_data, question_num }) => {
+const CoHere = ({ student_test_data, setShowCoHere, question_num=10 }) => {
     const [result, setResult] = useState(null);
 
     useEffect(() => {
