@@ -1,9 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { RingLoader } from "react-spinners";
 import { CohereClient } from 'cohere-ai';
+import jsPDF from 'jspdf';
 
 const CoHere = ({ student_test_data, setShowCoHere, question_num=10 }) => {
     const [result, setResult] = useState(null);
+
+    const handleDownloadPDF = (e) => {
+        e.preventDefault();
+        if (result) {
+          const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+          });
+    
+          const text = result.generations[0].text;
+          const textLines = pdf.splitTextToSize(text, pdf.internal.pageSize.width - 20);
+    
+          let cursorY = 10;
+          let currentPage = 1;
+    
+          textLines.forEach((line, index) => {
+            if (cursorY > pdf.internal.pageSize.height - 20) {
+              pdf.addPage();
+              cursorY = 10;
+              currentPage++;
+            }
+    
+            pdf.text(line, 10, cursorY);
+            cursorY += 10;
+          });
+    
+          pdf.save(`Worksheet.pdf`);
+        }
+      };
 
     useEffect(() => {
         const fetchResult = async () => {
@@ -14,14 +45,13 @@ const CoHere = ({ student_test_data, setShowCoHere, question_num=10 }) => {
 
             try {
                 console.log("Generating result...");
-                const result = await cohere.generate({
+                const res = await cohere.generate({
                     prompt: "I will give you test data for a student, which will consist of a stringified JSON of tests, their topics and the student's corresponding scores. Your task is to create a worksheet targetting the student's weaknesses to help them improve.\n"
                         + "Test Data: " + JSON.stringify(student_test_data) + "\n" +
                         "Return a worksheet with "+question_num+" questions, in a .txt format. Don't print anything other than the worksheet.",
                     maxTokens: 1000
                 });
-                console.log(result);
-                setResult(result);
+                if(!result) setResult(res);
             } catch (error) {
                 console.error('Error fetching result:', error);
             }
