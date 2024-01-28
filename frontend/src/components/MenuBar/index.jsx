@@ -7,7 +7,7 @@ const MenuBar = () => {
   const { loginWithRedirect } = useAuth0()
   const { user, isAuthenticated, isLoading } = useAuth0()
   return (
-    <div className="flex justify-between items-center w-screen h-[50px] bg-[#FFF8B4] ">
+    <div className="flex justify-between items-center w-screen h-[70px] bg-[#f08e50] ">
       <img src="WorkSheeps.png" className="max-h-full ml-5 py-1"/>
 
       {isAuthenticated ? (

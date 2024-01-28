@@ -14,7 +14,7 @@ const PopupModal = ({
   student = null,
   test = null,
   sub,
-  genJson=null
+  genJson = null,
 }) => {
   const [studentList, setStudentList] = useState([])
   const [gradesList, setGradesList] = useState({})
@@ -30,15 +30,18 @@ const PopupModal = ({
 
   useEffect(() => {
     // @ts-ignore
-    axios.get(`${import.meta.env.VITE_API_URL}/students/${user.sub}`).then((res) => {
-      setStudentList(res.data)
-      let newGradesList = {}
-      res.data.forEach((student) => {
-        newGradesList[student.id] = -1
+    axios
+      // @ts-ignore
+      .get(`${import.meta.env.VITE_API_URL}/students/${user.sub}`)
+      .then((res) => {
+        setStudentList(res.data)
+        let newGradesList = {}
+        res.data.forEach((student) => {
+          newGradesList[student.id] = -1
+        })
+        setGradesList(newGradesList)
+        setIsLoading(false)
       })
-      setGradesList(newGradesList)
-      setIsLoading(false)
-    })
   }, [])
 
   const submitTestForm = async () => {
@@ -146,7 +149,13 @@ const PopupModal = ({
               <div className="text-3xl text-[#4C8492] font-bold">
                 {student.first_name} {student.last_name}
               </div>
-              <Chart id={student.id} name={student.first_name+" "+student.last_name} genJson={genJson}/>
+              <div className="flex justify-around items-center py-5 w-full h-full">
+                <Chart
+                  id={student.id}
+                  name={student.first_name + " " + student.last_name}
+                  genJson={genJson}
+                />
+              </div>
             </>
           ) : type === "test" ? (
             <>
