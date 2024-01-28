@@ -132,10 +132,42 @@ const PopupModal = ({
             </>
           ) : type === "test" ? (
             <>
-              <h1>Name: {test.name}</h1>
-              <h2>Topic: {test.topic}</h2>
-              <br />
-              <h2>Analytics go here.</h2>
+              <div className="flex flex-col mt-3">
+                <div className="text-[#4C8492] font-thin">Test Name</div>
+                <div className="border-[1px] border-solid border-[#4C8492] max-h-[42px] px-4 py-2 rounded-md ">
+                  <div className="bg-[#FFFDE8] w-full h-full font-thin text-[#4C8492] outline-none overflow-y-scroll">
+                    {test.name}
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col mt-2">
+                <div className="text-[#4C8492] font-thin">Subject Material</div>
+                <div className="border-[1px] border-solid border-[#4C8492] max-h-[84px] h-full px-4 py-2 rounded-md ">
+                  <div className="bg-[#FFFDE8] w-full h-full font-thin text-[#4C8492] outline-none overflow-y-scroll">
+                    {test.topic}
+                  </div>
+                </div>
+              </div>
+              <div className="flex mt-2 w-full h-fit text-[#4C8492] border-b-[1px] border-solid border-[#f0d2bf]">
+                <div className="px-4 py-2">Grade</div>
+                <div className="px-4 py-2">Name</div>
+              </div>
+              <div className="flex-1 overflow-y-scroll">
+                {studentList.map(
+                  (
+                    value //need to fetch students with test id
+                  ) => (
+                    <div className="flex items-center w-full py-2 border-b-[1px] border-solid border-[#f0d2bf]">
+                      <div className="flex justify-around items-center ml-5 h-10 w-10 rounded-lg font-bold border-[1px] border-solid border-[#4C8492] text-[#4C8492] outline-none">
+                        81
+                      </div>
+                      <div className="ml-8 text-[#4C8492]">
+                        {value.last_name + ", " + value.first_name}
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
             </>
           ) : type == "addtest" ? (
             <>
