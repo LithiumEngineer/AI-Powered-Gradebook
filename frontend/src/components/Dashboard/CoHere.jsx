@@ -50,7 +50,7 @@ const CoHere = ({ student_test_data, setShowCoHere, question_num = 10 }) => {
         console.log("Generating result...")
         const res = await cohere.generate({
           prompt:
-            "I will give you test data for a student, which will consist of a stringified JSON of tests, their topics and the student's corresponding scores. Your task is to create a worksheet targetting the student's weaknesses to help them improve.\n" +
+            "I will give you test data for a student, which will consist of a stringified JSON of tests, their topics and the student's corresponding scores out of 100. Your task is to create a worksheet targetting the student's weaknesses (lower scores) to help them improve.\n" +
             "Test Data: " +
             JSON.stringify(student_test_data) +
             "\n" +
