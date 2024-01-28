@@ -14,6 +14,7 @@ const PopupModal = ({
   sub,
 }) => {
   const [studentList, setStudentList] = useState([])
+  const [gradesList, setGradesList] = useState({})
   const [testName, setTestName] = useState("")
   const [material, setMaterial] = useState("")
   const [firstName, setFirstName] = useState("")
@@ -27,20 +28,29 @@ const PopupModal = ({
   useEffect(() => {
     axios.get(`http://localhost:3500/students/${user.sub}`).then((res) => {
       setStudentList(res.data)
-      setIsLoading(false)
+      let newGradesList = {}
+      res.data.forEach((student) => {
+        newGradesList[student.id] = -1
+      })
+      setGradesList(newGradesList);
+      setIsLoading(false);
     })
   }, [])
 
   const submitTestForm = async () => {
     setIsLoading(true)
+    const json = studentList.map((student) => {
+      return {
+        student_id: student.id,
+        grade: gradesList[student.id],
+      }
+    })
+    console.log(json);
     try {
       await axios.post("http://localhost:3500/tests", {
         name: testName,
         topic: material,
-        student_grades_json: JSON.stringify({
-          Student1: "0.98",
-          Student2: "0.86",
-        }),
+        student_grades_json: JSON.stringify({ json }),
         test_type: "N/A",
         owner_id: sub,
       })
@@ -153,16 +163,15 @@ const PopupModal = ({
                 <div className="px-4 py-2">Name</div>
               </div>
               <div className="flex-1 overflow-y-scroll">
-                {studentList.map(
-                  (
-                    value //need to fetch students with test id
-                  ) => (
+                {studentList.map((student) => (
                     <div className="flex items-center w-full py-2 border-b-[1px] border-solid border-[#f0d2bf]">
                       <div className="flex justify-around items-center ml-5 h-10 w-10 rounded-lg font-bold border-[1px] border-solid border-[#4C8492] text-[#4C8492] outline-none">
-                        81
+                        {
+                          JSON.parse(test.student_grades_json).json.find((studentGrade) => studentGrade.student_id === student.id).grade
+                        }
                       </div>
                       <div className="ml-8 text-[#4C8492]">
-                        {value.last_name + ", " + value.first_name}
+                        {student.last_name + ", " + student.first_name}
                       </div>
                     </div>
                   )
@@ -200,14 +209,23 @@ const PopupModal = ({
                 <div className="px-4 py-2">Name</div>
               </div>
               <div className="flex-1 overflow-y-scroll">
-                {studentList.map((value) => (
-                  <div className="flex items-center w-full py-2 border-b-[1px] border-solid border-[#f0d2bf]">
+                {studentList.map((student) => (
+                  <div key={student.id} className="flex items-center w-full py-2 border-b-[1px] border-solid border-[#f0d2bf]">
                     <input
-                      type="text"
+                      type="number"
                       className="text-center ml-5 h-10 w-10 rounded-lg font-bold border-[1px] border-solid border-[#4C8492] text-[#5ec75d] outline-none"
+                      value={gradesList[student.id] === -1 ? "" : gradesList[student.id]}
+                      onChange={(e) => {
+                        let newGradesList = { ...gradesList };
+                        if (parseInt(e.target.value) > 100) newGradesList[student.id] = 100;
+                        else if (parseInt(e.target.value) < 0) newGradesList[student.id] = 0;
+                        else if(!e.target.value) newGradesList[student.id] = -1;
+                        else newGradesList[student.id] = e.target.value;
+                        setGradesList(newGradesList);
+                      }}
                     />
                     <div className="ml-8 text-[#4C8492]">
-                      {value.last_name + ", " + value.first_name}
+                      {student.last_name + ", " + student.first_name}
                     </div>
                   </div>
                 ))}
