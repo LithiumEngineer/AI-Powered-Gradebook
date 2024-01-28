@@ -5,7 +5,6 @@ import StudentItem from "./StudentItem"
 import StudentHeader from "./StudentHeader"
 import PopupModal from "./PopupModal"
 import React from "react"
-import { set } from "cohere-ai/core/schemas"
 
 const Students = ({ sub }) => {
   const [showAddPopup, setShowAddPopup] = useState(false)
