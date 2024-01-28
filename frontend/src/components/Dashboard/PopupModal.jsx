@@ -204,7 +204,7 @@ const PopupModal = ({
                   <div className="flex items-center w-full py-2 border-b-[1px] border-solid border-[#f0d2bf]">
                     <input
                       type="text"
-                      className="text-center ml-5 h-10 w-10 rounded-lg font-bold border-[1px] border-solid border-[#4C8492] text-[#4C8492] outline-none"
+                      className="text-center ml-5 h-10 w-10 rounded-lg font-bold border-[1px] border-solid border-[#4C8492] text-[#5ec75d] outline-none"
                     />
                     <div className="ml-8 text-[#4C8492]">
                       {value.last_name + ", " + value.first_name}
