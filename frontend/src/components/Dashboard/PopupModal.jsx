@@ -93,9 +93,8 @@ const PopupModal = ({
     return (
       <div
         style={{ backgroundColor: "rgba(50, 50, 50, 0.8)" }}
-        className={`fixed flex justify-around items-center top-0 left-0 h-screen w-screen z-30 ${
-          !open && "hidden"
-        }`}
+        className={`fixed flex justify-around items-center top-0 left-0 h-screen w-screen z-30 ${!open && "hidden"
+          }`}
       >
         <div className="flex flex-col relative flex-1 h-4/5 mx-20 bg-[#FFFDE8] rounded-lg">
           <IoIosCloseCircleOutline
@@ -122,9 +121,8 @@ const PopupModal = ({
   return (
     <div
       style={{ backgroundColor: "rgba(50, 50, 50, 0.8)" }}
-      className={`fixed flex justify-around items-center top-0 left-0 h-screen w-screen z-30 ${
-        !open && "hidden"
-      }`}
+      className={`fixed flex justify-around items-center top-0 left-0 h-screen w-screen z-30 ${!open && "hidden"
+        }`}
     >
       <div className="flex flex-col relative flex-1 h-4/5 mx-20 bg-[#FFFDE8] rounded-lg">
         <IoIosCloseCircleOutline
@@ -163,19 +161,23 @@ const PopupModal = ({
                 <div className="px-4 py-2">Name</div>
               </div>
               <div className="flex-1 overflow-y-scroll">
-                {studentList.map((student) => (
-                    <div className="flex items-center w-full py-2 border-b-[1px] border-solid border-[#f0d2bf]">
-                      <div className="flex justify-around items-center ml-5 h-10 w-10 rounded-lg font-bold border-[1px] border-solid border-[#4C8492] text-[#4C8492] outline-none">
-                        {
-                          JSON.parse(test.student_grades_json).json.find((studentGrade) => studentGrade.student_id === student.id).grade
-                        }
-                      </div>
-                      <div className="ml-8 text-[#4C8492]">
-                        {student.last_name + ", " + student.first_name}
-                      </div>
+                {test?.student_grades_json ? studentList.map((student) => (
+                  <div className="flex items-center w-full py-2 border-b-[1px] border-solid border-[#f0d2bf]">
+                    <div className="flex justify-around items-center ml-5 h-10 w-10 rounded-lg font-bold border-[1px] border-solid border-[#4C8492] text-[#4C8492] outline-none"
+                      style={{
+                        backgroundColor: `hsl(${(JSON.parse(test.student_grades_json).json.find((studentGrade) => studentGrade.student_id === student.id).grade) * 1.2}, 100%, 50%)`
+                        }}>
+                      {
+                        JSON.parse(test.student_grades_json).json.find((studentGrade) => studentGrade.student_id === student.id).grade
+                      }
                     </div>
-                  )
-                )}
+
+                    <div className="ml-8 text-[#4C8492]">
+                      {student.last_name + ", " + student.first_name}
+                    </div>
+                  </div>
+                )
+                ) : null}
               </div>
             </>
           ) : type == "addtest" ? (
@@ -219,7 +221,7 @@ const PopupModal = ({
                         let newGradesList = { ...gradesList };
                         if (parseInt(e.target.value) > 100) newGradesList[student.id] = 100;
                         else if (parseInt(e.target.value) < 0) newGradesList[student.id] = 0;
-                        else if(!e.target.value) newGradesList[student.id] = -1;
+                        else if (!e.target.value) newGradesList[student.id] = -1;
                         else newGradesList[student.id] = e.target.value;
                         setGradesList(newGradesList);
                       }}
