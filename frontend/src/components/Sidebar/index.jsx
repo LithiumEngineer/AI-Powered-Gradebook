@@ -4,7 +4,7 @@ import {
   HiOutlineUsers,
   HiOutlineDocumentText,
   HiOutlineCog6Tooth,
-  HiOutlineArrowLeftOnRectangle,
+  HiOutlineArrowLeftOnRectangle, 
   HiOutlinePlusCircle,
 } from "react-icons/hi2"
 import SidebarItem from "./SidebarItem"
